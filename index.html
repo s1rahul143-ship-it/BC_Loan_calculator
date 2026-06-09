@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Loan Management System</h1>
+
+<button onclick="calculate()">Calculate</button>
+<button onclick="runMonth()">Save Month</button>
+
+<br><br>
+
+Month:
+<input type="month" id="f15">
+
+<br><br>
+
+<table id="table"></table>
+
+<h2>Summary</h2>
+
+<table border="1">
+<tr><td>Total जमा</td><td id="t1"></td></tr>
+<tr><td>Total loan</td><td id="t2"></td></tr>
+<tr><td>Charges</td><td><input id="charges" value="680"></td></tr>
+<tr><td>Total शिल्लक</td><td id="t4"></td></tr>
+</table>
+
+<h2>Sheet2 (Monthly History)</h2>
+<table id="sheet2" border="1"></table>
+
+<script src="script.js"></script>
+
+</body>
+</html>
