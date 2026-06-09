@@ -1,7 +1,3 @@
-
-// =====================
-// EMPLOYEES
-// =====================
 let names = [
 "Abhijeet Fulari",
 "Vaibhav Wagh",
@@ -15,17 +11,11 @@ let names = [
 "Rahul Shinde"
 ];
 
-// =====================
-// DATA STORAGE
-// =====================
 let months = [];
 let sheet2 = {};
 
-// =====================
-// CREATE SHEET1
-// =====================
+// ---------------- TABLE ----------------
 function loadTable(){
-
     let t = document.getElementById("table");
 
     t.innerHTML = `
@@ -43,7 +33,6 @@ function loadTable(){
     </tr>`;
 
     names.forEach((name,i)=>{
-
         t.innerHTML += `
         <tr>
             <td>${name}</td>
@@ -60,9 +49,7 @@ function loadTable(){
     });
 }
 
-// =====================
-// CALCULATE SHEET1
-// =====================
+// ---------------- CALCULATE ----------------
 function calculate(){
 
     for(let i=0;i<10;i++){
@@ -73,7 +60,6 @@ function calculate(){
         let d = document.getElementById("d"+i).value;
         let g = document.getElementById("g"+i).value;
 
-        // End date = +10 months
         if(d){
             let dt = new Date(d);
             dt.setMonth(dt.getMonth()+10);
@@ -91,20 +77,15 @@ function calculate(){
         let loanEMI = (c*0.112) + (f*0.112);
         let total = 500 + loanEMI;
 
-        document.getElementById("i"+i).innerText =
-            loanEMI.toFixed(0);
-
-        document.getElementById("j"+i).innerText =
-            total.toFixed(0);
+        document.getElementById("i"+i).innerText = loanEMI.toFixed(0);
+        document.getElementById("j"+i).innerText = total.toFixed(0);
     }
 
     updateSummary();
     saveData();
 }
 
-// =====================
-// RUN MONTH (Sheet2 logic)
-// =====================
+// ---------------- MONTH ----------------
 function runMonth(){
 
     let month = document.getElementById("f15").value;
@@ -117,16 +98,13 @@ function runMonth(){
     let col = [];
 
     for(let i=0;i<10;i++){
-
         let c = Number(document.getElementById("c"+i).value || 0);
         let f = Number(document.getElementById("f"+i).value || 0);
 
         let total = 500 + (c*0.112 + f*0.112);
-
         col.push(total);
     }
 
-    // overwrite if exists
     sheet2[month] = col;
 
     if(!months.includes(month)){
@@ -138,41 +116,28 @@ function runMonth(){
     saveData();
 }
 
-// =====================
-// SHEET2 RENDER
-// =====================
+// ---------------- RENDER ----------------
 function renderSheet2(){
 
     let t = document.getElementById("sheet2");
-
     t.innerHTML = "";
 
     let header = "<tr><th>Name</th>";
-
-    months.forEach(m=>{
-        header += `<th>${m}</th>`;
-    });
-
+    months.forEach(m => header += `<th>${m}</th>`);
     header += "</tr>";
     t.innerHTML += header;
 
     for(let i=0;i<10;i++){
-
         let row = `<tr><td>${names[i]}</td>`;
-
         months.forEach(m=>{
             row += `<td>${sheet2[m]?.[i] || 0}</td>`;
         });
-
         row += "</tr>";
-
         t.innerHTML += row;
     }
 }
 
-// =====================
-// SUMMARY (TOTAL FROM SHEET2)
-// =====================
+// ---------------- SUMMARY ----------------
 function updateSummary(){
 
     let totalLoan = 0;
@@ -198,9 +163,7 @@ function updateSummary(){
     document.getElementById("t4").innerText = totalJama - totalLoan - charges;
 }
 
-// =====================
-// SAVE DATA (LOCAL STORAGE)
-// =====================
+// ---------------- FIREBASE SAVE ----------------
 function saveData(){
 
     let sheet1 = [];
@@ -214,41 +177,43 @@ function saveData(){
         });
     }
 
-    localStorage.setItem("sheet1", JSON.stringify(sheet1));
-    localStorage.setItem("sheet2", JSON.stringify(sheet2));
-    localStorage.setItem("months", JSON.stringify(months));
+    db.ref("loanApp").set({
+        sheet1: sheet1,
+        sheet2: sheet2,
+        months: months
+    });
 }
 
-// =====================
-// LOAD DATA (RESTORE)
-// =====================
+// ---------------- FIREBASE LOAD ----------------
 function loadData(){
 
-    let s1 = localStorage.getItem("sheet1");
-    let s2 = localStorage.getItem("sheet2");
-    let m = localStorage.getItem("months");
+    db.ref("loanApp").on("value", (snap)=>{
+        let data = snap.val();
+        if(!data) return;
 
-    if(s2) sheet2 = JSON.parse(s2);
-    if(m) months = JSON.parse(m);
+        sheet2 = data.sheet2 || {};
+        months = data.months || [];
 
-    if(s1){
-        let sheet1 = JSON.parse(s1);
+        let sheet1 = data.sheet1 || [];
 
-        sheet1.forEach((r,i)=>{
-            document.getElementById("c"+i).value = r.c;
-            document.getElementById("d"+i).value = r.d;
-            document.getElementById("f"+i).value = r.f;
-            document.getElementById("g"+i).value = r.g;
-        });
-    }
+        setTimeout(()=>{
+            sheet1.forEach((r,i)=>{
+                if(document.getElementById("c"+i)){
+                    document.getElementById("c"+i).value = r.c;
+                    document.getElementById("d"+i).value = r.d;
+                    document.getElementById("f"+i).value = r.f;
+                    document.getElementById("g"+i).value = r.g;
+                }
+            });
+
+            renderSheet2();
+            updateSummary();
+        },500);
+    });
 }
 
-// =====================
-// START APP
-// =====================
+// ---------------- START ----------------
 window.onload = function(){
     loadTable();
     loadData();
-    renderSheet2();
-    updateSummary();
 }
