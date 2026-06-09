@@ -165,20 +165,7 @@ function updateSummary(){
 
 // ---------------- FIREBASE SAVE ----------------
 function saveData(){
-
-    let sheet1 = [];
-
-    for(let i=0;i<10;i++){
-        sheet1.push({
-            c: document.getElementById("c"+i).value,
-            d: document.getElementById("d"+i).value,
-            f: document.getElementById("f"+i).value,
-            g: document.getElementById("g"+i).value
-        });
-    }
-
     db.ref("loanApp").set({
-        sheet1: sheet1,
         sheet2: sheet2,
         months: months
     });
@@ -194,21 +181,8 @@ function loadData(){
         sheet2 = data.sheet2 || {};
         months = data.months || [];
 
-        let sheet1 = data.sheet1 || [];
-
-        setTimeout(()=>{
-            sheet1.forEach((r,i)=>{
-                if(document.getElementById("c"+i)){
-                    document.getElementById("c"+i).value = r.c;
-                    document.getElementById("d"+i).value = r.d;
-                    document.getElementById("f"+i).value = r.f;
-                    document.getElementById("g"+i).value = r.g;
-                }
-            });
-
-            renderSheet2();
-            updateSummary();
-        },500);
+        renderSheet2();
+        updateSummary();
     });
 }
 
