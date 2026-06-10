@@ -1,3 +1,9 @@
+const ADMIN_PASSWORD = "1234";
+
+function checkPassword() {
+    const pass = prompt("Password Enter Kara");
+    return pass === ADMIN_PASSWORD;
+}
 let names = [
 "Abhijeet Fulari",
 "Vaibhav Wagh",
@@ -52,7 +58,10 @@ function loadTable(){
 
 // ---------------- CALCULATE ----------------
 function calculate(){
-
+if (!checkPassword()) {
+      alert("Wrong Password");
+      return;
+   }
     for(let i=0;i<10;i++){
 
         let c = Number(document.getElementById("c"+i).value || 0);
@@ -190,7 +199,10 @@ function updateSummary(){
 
 // ---------------- FIREBASE SAVE ----------------
 function saveData(){
-
+if (!checkPassword()) {
+      alert("Wrong Password");
+      return;
+   }
     let members = [];
 
     for(let i=0;i<10;i++){
