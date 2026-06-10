@@ -111,7 +111,7 @@ function calculate(){
 
 // ---------------- MONTH ----------------
 function runMonth(){
-if (!checkPassword())return;
+//if (!checkPassword())return;
     let month = document.getElementById("f15").value;
 
     if(!month){
