@@ -266,7 +266,7 @@ function loadData(){
 
         }
 
-     //   calculate();
+       calculate();
         renderSheet2();
         updateSummary();
 
