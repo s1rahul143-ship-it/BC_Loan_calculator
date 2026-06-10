@@ -68,7 +68,7 @@ function loadTable(){
 
 // ---------------- CALCULATE ----------------
 function calculate(){
-if (!checkPassword())return;
+//if (!checkPassword())return;
    
     for(let i=0;i<10;i++){
 
@@ -207,6 +207,7 @@ function updateSummary(){
 
 // ---------------- FIREBASE SAVE ----------------
 function saveData(){
+    if (!checkPassword())return
     let members = [];
 
     for(let i=0;i<10;i++){
