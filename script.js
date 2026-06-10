@@ -111,7 +111,7 @@ if (!checkPassword())return;
 
 // ---------------- MONTH ----------------
 function runMonth(){
-
+if (!checkPassword())return;
     let month = document.getElementById("f15").value;
 
     if(!month){
@@ -207,7 +207,6 @@ function updateSummary(){
 
 // ---------------- FIREBASE SAVE ----------------
 function saveData(){
-if (!checkPassword())return;
     let members = [];
 
     for(let i=0;i<10;i++){
@@ -266,7 +265,7 @@ function loadData(){
 
         }
 
-        calculate();
+     //   calculate();
         renderSheet2();
         updateSummary();
 
