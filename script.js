@@ -1,4 +1,4 @@
-const ADMIN_PASSWORD = "1234";
+const ADMIN_PASSWORD = "12345";
 let isAuthenticated = false;
 
 function checkPassword() {
