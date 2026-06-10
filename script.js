@@ -106,7 +106,7 @@ function calculate(){
     }
 
     updateSummary();
-    saveData();
+   // saveData();
 }
 
 // ---------------- MONTH ----------------
@@ -139,7 +139,7 @@ function runMonth(){
 
     renderSheet2();
     updateSummary();
-   // saveData();
+    saveData();
 }
 
 // ---------------- RENDER ----------------
