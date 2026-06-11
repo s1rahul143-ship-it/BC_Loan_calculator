@@ -1,13 +1,9 @@
 const ADMIN_PASSWORD = "12345";
-let isAuthenticated = false;
 
 function checkPassword() {
-    if (isAuthenticated) return true;
-
-    const pass = prompt("Enter Password");
+const pass = prompt("Enter Password");
 
     if (pass === ADMIN_PASSWORD) {
-        isAuthenticated = true;
         return true;
     }
 
