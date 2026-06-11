@@ -64,7 +64,7 @@ function loadTable(){
 
 // ---------------- CALCULATE ----------------
 function calculate(){
-//if (!checkPassword())return;
+if (!checkPassword())return;
    
     for(let i=0;i<10;i++){
 
@@ -102,7 +102,7 @@ function calculate(){
     }
 
     updateSummary();
-   // saveData();
+    saveData();
 }
 
 // ---------------- MONTH ----------------
@@ -135,7 +135,7 @@ if (!checkPassword())return;
 
     renderSheet2();
     updateSummary();
-  //  saveData();
+    saveData();
 }
 
 // ---------------- RENDER ----------------
