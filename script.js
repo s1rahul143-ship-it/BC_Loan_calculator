@@ -112,6 +112,7 @@ function calculate(skipPassword = false){
 
 // ---------------- MONTH ----------------
 function runMonth(){
+    if (!checkPassword()) return;
     let month = document.getElementById("f15").value;
 
     if(!month){
