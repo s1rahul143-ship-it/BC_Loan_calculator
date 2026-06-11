@@ -63,8 +63,11 @@ function loadTable(){
 }
 
 // ---------------- CALCULATE ----------------
-function calculate(){
-if (!checkPassword())return;
+function calculate(skipPassword = false){
+
+    if (!skipPassword) {
+        if (!checkPassword()) return;
+    }
    
     for(let i=0;i<10;i++){
 
@@ -107,7 +110,6 @@ if (!checkPassword())return;
 
 // ---------------- MONTH ----------------
 function runMonth(){
-if (!checkPassword())return;
     let month = document.getElementById("f15").value;
 
     if(!month){
@@ -135,7 +137,7 @@ if (!checkPassword())return;
 
     renderSheet2();
     updateSummary();
-    saveData();
+    saveData(true);
 }
 
 // ---------------- RENDER ----------------
@@ -262,7 +264,7 @@ function loadData(){
 
         }
 
-       calculate();
+       calculate(true);
         renderSheet2();
         updateSummary();
 
