@@ -105,7 +105,7 @@ function calculate(skipPassword = false){
     }
 
     updateSummary();
-    saveData();
+    saveData(true);
 }
 
 // ---------------- MONTH ----------------
@@ -204,7 +204,11 @@ function updateSummary(){
 }
 
 // ---------------- FIREBASE SAVE ----------------
-function saveData(){
+function saveData(skipPassword = false){
+
+    if (!skipPassword) {
+        if (!checkPassword()) return;
+    }
    
     let members = [];
 
