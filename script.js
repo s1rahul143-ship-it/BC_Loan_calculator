@@ -105,7 +105,9 @@ function calculate(skipPassword = false){
     }
 
     updateSummary();
+    if (!skipPassword) {
     saveData(true);
+}
 }
 
 // ---------------- MONTH ----------------
