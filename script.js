@@ -190,22 +190,21 @@ function updateSummary(){
     let totalJama = 0;
 
     Object.keys(sheet2).forEach(m=>{
-
         sheet2[m].forEach(v=>{
             totalJama += Number(v || 0);
         });
-
     });
+
+    let loanCompleted =
+        Number(document.getElementById("loanCompleted").value || 0);
 
     let charges =
         Number(document.getElementById("charges").value || 0);
-    let lcompleted =
-        Number(document.getElementById("Loan completed").value || 0);
 
     document.getElementById("t1").innerText = totalJama;
     document.getElementById("t2").innerText = totalLoan;
     document.getElementById("t5").innerText =
-        totalJama - totalLoan - lcompleted- charges;
+        totalJama - totalLoan - loanCompleted - charges;
 }
 
 // ---------------- FIREBASE SAVE ----------------
