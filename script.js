@@ -199,11 +199,13 @@ function updateSummary(){
 
     let charges =
         Number(document.getElementById("charges").value || 0);
+    let lcompleted =
+        Number(document.getElementById("Loan completed").value || 0);
 
     document.getElementById("t1").innerText = totalJama;
     document.getElementById("t2").innerText = totalLoan;
-    document.getElementById("t4").innerText =
-        totalJama - totalLoan - charges;
+    document.getElementById("t5").innerText =
+        totalJama - totalLoan - lcompleted- charges;
 }
 
 // ---------------- FIREBASE SAVE ----------------
